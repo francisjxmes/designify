@@ -1,7 +1,23 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 
 {% block content %}
 <h1 class="mb-4">Our Services</h1>
+
+<!-- Display messages (e.g. newsletter success/error) -->
+{% if messages %}
+<div class="container mb-4">
+    {% for message in messages %}
+    <div class="alert 
+        {% if message.tags == 'success' %}alert-success
+        {% elif message.tags == 'error' %}alert-danger
+        {% else %}alert-warning{% endif %}" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
 <div class="row">
     {% for product in products %}
     <div class="col-md-4 mb-3">
@@ -14,18 +30,31 @@
                 <p class="card-text">{{ product.description }}</p>
                 <p class="card-text"><strong>€{{ product.price }}</strong></p>
                 
+                <!-- Order button -->
                 <a href="{% url 'create_order' %}?product={{ product.id }}" class="btn btn-primary">Order This</a>
 
+                <!-- Delete button only visible to staff -->
                 {% if request.user.is_staff %}
                 <a href="{% url 'delete_product' product.id %}" class="btn btn-danger mt-2">Delete</a>
                 {% endif %}
             </div>
         </div>
     </div>
-    <a href="{% url 'create_order' %}" class="btn btn-success mb-3">Place an Order</a>
-
     {% empty %}
     <p>No products available yet.</p>
     {% endfor %}
 </div>
+
+<!-- Single "Place an Order" button outside loop -->
+<a href="{% url 'create_order' %}" class="btn btn-success mb-3">Place an Order</a>
+
+<div class="container mt-5 text-center">
+    <h2>Subscribe to our Newsletter</h2>
+    <form method="POST" action="{% url 'subscribe' %}" class="d-inline-block mt-3">
+        {% csrf_token %}
+        {{ newsletter_form.email|add_class:"form-control d-inline-block w-auto" }}
+        <button type="submit" class="btn btn-outline-primary ms-2">Subscribe</button>
+    </form>
+</div>
+
 {% endblock %}

@@ -3,4 +3,4 @@ Disallow: /admin/
 Disallow: /venv/
 Disallow: /__pycache__/
 Allow: /
-Sitemap: 
+Sitemap: [Add live site url here]/sitemap.xml
