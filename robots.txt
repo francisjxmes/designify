@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /venv/
+Disallow: /__pycache__/
+Allow: /
+Sitemap: 
