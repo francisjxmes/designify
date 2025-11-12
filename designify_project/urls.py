@@ -16,8 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
+from newsletter.views import subscribe
 from products.views import home
+from orders.views import create_order
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -25,6 +26,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
+    path('subscribe/', subscribe, name='subscribe'),
+    path('order/', create_order, name='create_order'),
+    path('admin/', admin.site.urls),
 ]
 
 if settings.DEBUG:

@@ -1,0 +1,7 @@
+{% load static %}
+<h3>Place an Order</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Submit Order</button>
+</form>

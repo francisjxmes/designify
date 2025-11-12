@@ -13,9 +13,17 @@
                 <h5 class="card-title">{{ product.name }}</h5>
                 <p class="card-text">{{ product.description }}</p>
                 <p class="card-text"><strong>€{{ product.price }}</strong></p>
+                
+                <a href="{% url 'create_order' %}?product={{ product.id }}" class="btn btn-primary">Order This</a>
+
+                {% if request.user.is_staff %}
+                <a href="{% url 'delete_product' product.id %}" class="btn btn-danger mt-2">Delete</a>
+                {% endif %}
             </div>
         </div>
     </div>
+    <a href="{% url 'create_order' %}" class="btn btn-success mb-3">Place an Order</a>
+
     {% empty %}
     <p>No products available yet.</p>
     {% endfor %}
