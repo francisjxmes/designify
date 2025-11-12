@@ -1,0 +1,6 @@
+{% load static %}
+<form method="post" class="mb-3">
+    {% csrf_token %}
+    {{ form.email }}
+    <button type="submit" class="btn btn-primary mt-2">Subscribe</button>
+</form>
