@@ -33,3 +33,11 @@ def subscribe(request):
             messages.error(request, "Please enter a valid email address.")
     return redirect('home')
 
+def delete_product(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    product.delete()
+    return redirect('home')
+
+def product_detail(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    return render(request, 'products/product_detail.html', {'product': product})

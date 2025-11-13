@@ -1,0 +1,10 @@
+<h1>{{ product.name }}</h1>
+
+{% if product.image %}
+<img src="{{ product.image.url }}" alt="{{ product.name }}" width="300">
+{% endif %}
+
+<p>{{ product.description }}</p>
+<p><strong>€{{ product.price }}</strong></p>
+
+<a href="{% url 'add_to_order' product.id %}">Add to Cart</a>
