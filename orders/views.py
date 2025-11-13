@@ -1,28 +1,28 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Order
-from .forms import OrderForm
+from .models import Order, OrderItem
+from products.models import Product
 
 @login_required
-def create_order(request):
-    initial_data = {}
-    product_id = request.GET.get('product')
-    if product_id:
-        initial_data['product'] = product_id
+def add_to_order(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    order, created = Order.objects.get_or_create(user=request.user, completed=False)
 
     if request.method == 'POST':
-        form = OrderForm(request.POST)
-        if form.is_valid():
-            order = form.save(commit=False)
-            order.user = request.user  # assign logged-in user
-            order.save()
-            return redirect('home')
-    else:
-        form = OrderForm(initial=initial_data)
+        quantity = int(request.POST.get('quantity', 1))
+        order_item, created = OrderItem.objects.get_or_create(order=order, product=product)
+        if not created:
+            order_item.quantity += quantity
+        else:
+            order_item.quantity = quantity
+        order_item.save()
+        return redirect('view_order')  # redirect to cart page
 
-    return render(request, 'orders/order_form.html', {'form': form})
+    return render(request, 'orders/add_to_order.html', {'product': product})
 
 @login_required
-def my_orders(request):
-    orders = Order.objects.filter(user=request.user).order_by('-created_at')
-    return render(request, 'orders/my_orders.html', {'orders': orders})
+def view_order(request):
+    order = Order.objects.filter(user=request.user, completed=False).first()
+    items = order.items.all() if order else []
+    total = order.total_price() if order else 0
+    return render(request, 'orders/view_order.html', {'order': order, 'items': items, 'total': total})
