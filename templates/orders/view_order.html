@@ -7,7 +7,7 @@
         {% endfor %}
     </ul>
 
-    <p>Total: €{{ total }}</p>
+    <p><strong>Total: €{{ total }}</strong></p>
 
     <form action="{% url 'stripe_checkout' order.id %}" method="POST">
         {% csrf_token %}

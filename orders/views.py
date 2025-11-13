@@ -118,10 +118,6 @@ def view_order(request):
 
 @login_required
 def checkout_success(request):
-    order = Order.objects.filter(user=request.user, completed=False).first()
-    if order:
-        order.completed = True
-        order.save()
     return render(request, 'orders/checkout_success.html')
 
 @login_required
