@@ -1,9 +1,43 @@
 import stripe
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Order, OrderItem
 from products.models import Product
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+@csrf_exempt
+def stripe_webhook(request):
+    payload = request.body
+    sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
+    endpoint_secret = settings.STRIPE_WEBHOOK_SECRET
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, endpoint_secret
+        )
+    except ValueError as e:
+        # Invalid payload
+        return HttpResponse(status=400)
+    except stripe.error.SignatureVerificationError as e:
+        # Invalid signature
+        return HttpResponse(status=400)
+
+    # Handle the checkout.session.completed event
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object']
+        order_id = session.get('client_reference_id')
+        try:
+            order = Order.objects.get(id=order_id)
+            order.completed = True
+            order.save()
+        except Order.DoesNotExist:
+            pass
+
+    return HttpResponse(status=200)
 
 @login_required
 def stripe_checkout(request, order_id):
@@ -28,6 +62,7 @@ def stripe_checkout(request, order_id):
         mode='payment',
         success_url=request.build_absolute_uri('/orders/success/'),
         cancel_url=request.build_absolute_uri('/orders/cancel/'),
+        client_reference_id=str(order.id),
     )
     return redirect(session.url, code=303)
 
@@ -81,4 +116,15 @@ def view_order(request):
     total = order.total_price() if order else 0
     return render(request, 'orders/view_order.html', {'order': order, 'items': items, 'total': total})
 
+@login_required
+def checkout_success(request):
+    order = Order.objects.filter(user=request.user, completed=False).first()
+    if order:
+        order.completed = True
+        order.save()
+    return render(request, 'orders/checkout_success.html')
+
+@login_required
+def checkout_cancel(request):
+    return render(request, 'orders/checkout_cancel.html')
 
