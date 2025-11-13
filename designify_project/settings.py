@@ -41,8 +41,7 @@ INSTALLED_APPS = [
     'orders',
     'newsletter',
 
-    # other apps
-    'widget_tweaks',
+   
 ]
 
 MIDDLEWARE = [
