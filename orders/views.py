@@ -1,9 +1,12 @@
 from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import DesignOrderForm
+from .forms_deliverable import DeliverableForm
 from .models import DesignOrder, DesignPackage
+from .models import Deliverable
 from .utils import calculate_quote
 
 
@@ -89,3 +92,44 @@ def order_delete(request, order_id):
         return redirect("order_list")
 
     return render(request, "orders/order_confirm_delete.html", {"order": order})
+
+@staff_member_required
+def deliverable_upload(request, order_id):
+    order = get_object_or_404(DesignOrder, id=order_id)
+
+    if request.method == "POST":
+        form = DeliverableForm(request.POST, request.FILES)
+        if form.is_valid():
+            deliverable = form.save(commit=False)
+            deliverable.order = order
+            deliverable.save()
+
+            if order.status in ["paid", "in_progress"]:
+                order.status = "delivered"
+                order.save()
+
+            messages.success(request, "Deliverable uploaded.")
+            return redirect("order_admin_detail", order_id=order.id)
+        messages.error(request, "Please fix the errors below.")
+    else:
+        form = DeliverableForm()
+
+    return render(request, "orders/deliverable_form.html", {"form": form, "order": order})
+
+
+@staff_member_required
+def deliverable_delete(request, deliverable_id):
+    deliverable = get_object_or_404(Deliverable, id=deliverable_id)
+    order_id = deliverable.order.id
+
+    if request.method == "POST":
+        deliverable.delete()
+        messages.success(request, "Deliverable deleted.")
+        return redirect("order_admin_detail", order_id=order_id)
+
+    return render(request, "orders/deliverable_confirm_delete.html", {"deliverable": deliverable})
+
+@staff_member_required
+def order_admin_detail(request, order_id):
+    order = get_object_or_404(DesignOrder, id=order_id)
+    return render(request, "orders/order_admin_detail.html", {"order": order})

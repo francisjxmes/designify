@@ -32,4 +32,20 @@
 {% endif %}
 
 <p><a href="{% url 'order_list' %}">Back to orders</a></p>
+
+<h2>Deliverables</h2>
+
+{% if order.deliverables.all %}
+  <ul>
+    {% for d in order.deliverables.all %}
+      <li>
+        <a href="{{ d.file.url }}">{{ d.file.name }}</a>
+        {% if d.note %} — {{ d.note }}{% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No deliverables uploaded yet.</p>
+{% endif %}
+
 {% endblock %}

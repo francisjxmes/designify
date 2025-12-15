@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Admin Order #{{ order.id }} | Designify{% endblock %}
+{% block content %}
+<h1>Admin: Order #{{ order.id }}</h1>
+
+<ul>
+  <li><strong>User:</strong> {{ order.user.username }}</li>
+  <li><strong>Package:</strong> {{ order.package.name }}</li>
+  <li><strong>Status:</strong> {{ order.get_status_display }}</li>
+  <li><strong>Quote:</strong> €{{ order.quoted_price_eur }}</li>
+</ul>
+
+<p><strong>Brief:</strong><br>{{ order.brief }}</p>
+
+<h2>Deliverables</h2>
+
+<p><a href="{% url 'deliverable_upload' order.id %}">Upload deliverable</a></p>
+
+{% if order.deliverables.all %}
+  <ul>
+    {% for d in order.deliverables.all %}
+      <li>
+        <a href="{{ d.file.url }}">{{ d.file.name }}</a>
+        {% if d.note %} — {{ d.note }}{% endif %}
+
+        <form action="{% url 'deliverable_delete' d.id %}" method="post" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No deliverables yet.</p>
+{% endif %}
+{% endblock %}
