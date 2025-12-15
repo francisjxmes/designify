@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Designify{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}Designify — purchase professional graphic design packages and manage your design orders.{% endblock %}">
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="{% url 'home' %}">Designify</a>
+
+      {% if user.is_authenticated %}
+        <span>Signed in as {{ user.username }}</span>
+        <form action="{% url 'logout' %}" method="post" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit">Logout</button>
+        </form>
+        
+      {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Register</a>
+      {% endif %}
+
+      {% if user.is_staff %}
+        <a href="/admin/">Admin</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  {% if messages %}
+    <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>
