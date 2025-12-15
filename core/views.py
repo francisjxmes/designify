@@ -3,6 +3,7 @@ from django.contrib.auth import login
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
+from django.http import HttpResponse
 
 from .forms import RegisterForm
 
@@ -47,3 +48,11 @@ class CustomLoginView(LoginView):
 
 class CustomLogoutView(LogoutView):
     next_page = reverse_lazy("home")
+
+def robots_txt(request):
+    lines = [
+        "User-Agent: *",
+        "Allow: /",
+        "Sitemap: " + request.build_absolute_uri("/sitemap.xml"),
+    ]
+    return HttpResponse("\n".join(lines), content_type="text/plain")

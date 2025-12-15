@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}{{ item.title }} | Designify{% endblock %}
+{% block meta_description %}{{ item.description|truncatechars:150 }}{% endblock %}
+{% block content %}
+<h1>{{ item.title }}</h1>
+<p><strong>Category:</strong> {{ item.category }}</p>
+<p>{{ item.description }}</p>
+
+{% if item.image %}
+  <img src="{{ item.image.url }}" alt="{{ item.title }}">
+{% endif %}
+
+<p><a href="{% url 'portfolio_list' %}">Back to portfolio</a></p>
+{% endblock %}

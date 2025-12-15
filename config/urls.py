@@ -18,7 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-
+from django.contrib.sitemaps.views import sitemap
+from core.sitemaps import StaticViewSitemap, PortfolioSitemap
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,6 +27,16 @@ urlpatterns = [
     path("orders/", include("orders.urls")),
     path("payments/", include("payments.urls")),
     path("marketing/", include("marketing.urls")),
+    path("portfolio/", include("portfolio.urls")),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+sitemaps = {
+    "static": StaticViewSitemap,
+    "portfolio": PortfolioSitemap,
+}
+
+urlpatterns += [
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django_sitemap"),
+]

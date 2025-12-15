@@ -11,6 +11,9 @@
     <nav>
       <a href="{% url 'home' %}">Designify</a>
 
+      <a href="{% url 'portfolio_list' %}">Portfolio</a>
+
+
       {% if user.is_authenticated %}
         <span>Signed in as {{ user.username }}</span>
         <form action="{% url 'logout' %}" method="post" style="display:inline;">

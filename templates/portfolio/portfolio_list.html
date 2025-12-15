@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Portfolio | Designify{% endblock %}
+{% block meta_description %}Explore Designify’s portfolio of logo, poster and branding work, plus client testimonials.{% endblock %}
+{% block content %}
+<h1>Portfolio</h1>
+
+<ul>
+  {% for item in items %}
+    <li>
+      <a href="{% url 'portfolio_detail' item.id %}">{{ item.title }}</a>
+      — {{ item.category }}
+    </li>
+  {% endfor %}
+</ul>
+
+<h2>Testimonials</h2>
+<ul>
+  {% for t in testimonials %}
+    <li>{{ t.client_name }} — “{{ t.quote }}” ({{ t.rating }}/5)</li>
+  {% endfor %}
+</ul>
+{% endblock %}
