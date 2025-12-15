@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Payment Cancelled | Designify{% endblock %}
+{% block content %}
+<h1>Payment cancelled</h1>
+<p>No worries — your order #{{ order.id }} is still saved.</p>
+<p><a href="{% url 'order_detail' order.id %}">Go back to your order</a></p>
+{% endblock %}

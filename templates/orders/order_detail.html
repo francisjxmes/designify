@@ -21,6 +21,14 @@
     {% csrf_token %}
     <button type="submit">Delete</button>
   </form>
+
+  <p>
+    <a href="{% url 'checkout' order.id %}">Pay with card (Stripe)</a>
+  </p>  
+{% endif %}
+
+{% if order.status == "paid" %}
+  <p><strong>Paid ✅</strong> We’ll start your design shortly.</p>
 {% endif %}
 
 <p><a href="{% url 'order_list' %}">Back to orders</a></p>
