@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Order | Designify{% endblock %}
+{% block content %}
+<h1>{% if mode == "edit" %}Edit Order{% else %}New Order{% endif %}</h1>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">{% if mode == "edit" %}Save changes{% else %}Create order{% endif %}</button>
+</form>
+
+<p><a href="{% url 'order_list' %}">Back to orders</a></p>
+{% endblock %}
