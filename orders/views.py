@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
+from django.db.models import Q
 
 from .forms import DesignOrderForm
 from .forms_deliverable import DeliverableForm
@@ -133,3 +134,31 @@ def deliverable_delete(request, deliverable_id):
 def order_admin_detail(request, order_id):
     order = get_object_or_404(DesignOrder, id=order_id)
     return render(request, "orders/order_admin_detail.html", {"order": order})
+
+@staff_member_required
+def admin_order_list(request):
+    qs = DesignOrder.objects.select_related("user", "package").all()
+
+    status = request.GET.get("status", "").strip()
+    q = request.GET.get("q", "").strip()
+
+    if status:
+        qs = qs.filter(status=status)
+
+    if q:
+        qs = qs.filter(
+            Q(user__username__icontains=q) |
+            Q(package__name__icontains=q) |
+            Q(design_type__icontains=q)
+        )
+
+    return render(
+        request,
+        "orders/admin_order_list.html",
+        {
+            "orders": qs,
+            "status": status,
+            "q": q,
+            "status_choices": DesignOrder.STATUS_CHOICES,
+        },
+    )

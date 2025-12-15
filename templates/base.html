@@ -25,7 +25,10 @@
 
       {% if user.is_staff %}
         <a href="/admin/">Admin</a>
-        <a href="{% url 'order_admin_detail' 1 %}">Admin Orders</a>
+        {% if user.is_staff %}
+        <a href="{% url 'admin_order_list' %}">Admin Orders</a>
+        {% endif %}
+
       {% endif %}
 
       {% if user.is_authenticated %}
@@ -46,5 +49,15 @@
   <main>
     {% block content %}{% endblock %}
   </main>
+
+  <footer>
+    <h3>Newsletter</h3>
+    <form action="{% url 'newsletter_signup' %}" method="post">
+      {% csrf_token %}
+      <input type="email" name="email" placeholder="you@example.com" required>
+      <button type="submit">Sign up</button>
+    </form>
+  </footer>  
+
 </body>
 </html>
