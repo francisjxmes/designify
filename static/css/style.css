@@ -2,7 +2,14 @@
   --df-accent: #7c3aed; 
 }
 
-.bg-black { background: #000 !important; }
+.bg-black { 
+  background: #000 !important; 
+  color: #fff !important;
+}
+
+.bg-black .text-secondary {
+  color: rgba(255,255,255,0.7) !important;
+}
 
 .navbar-brand { letter-spacing: .08em; }
 
@@ -34,3 +41,23 @@ a .card:hover {
   --bs-table-bg: rgba(0,0,0,0.35);
   --bs-table-border-color: rgba(255,255,255,0.12);
 }
+
+/* Improve contrast on dark theme */
+h1, h2, h3, h4, h5, h6 {
+  color: #ffffff;
+}
+
+.card h5,
+.card h6 {
+  color: #ffffff;
+}
+
+.form-label {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+}
+
+.text-secondary {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
