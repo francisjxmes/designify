@@ -55,7 +55,6 @@ SITE_ID = 1
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -146,8 +145,9 @@ MEDIA_ROOT = BASE_DIR / "media"
 STRIPE_PUBLIC_KEY = os.getenv("STRIPE_PUBLIC_KEY", "")
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "")
 
-if not STRIPE_SECRET_KEY:
-    raise ValueError("STRIPE_SECRET_KEY not found. Check your .env is in project root and load_dotenv path.")
+if not STRIPE_SECRET_KEY and DEBUG:
+    print("WARNING: STRIPE_SECRET_KEY not set (Stripe checkout will not work).")
+
 
 
 
