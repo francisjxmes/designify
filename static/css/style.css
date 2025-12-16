@@ -23,3 +23,7 @@ a .card:hover {
   transform: translateY(-2px);
   transition: transform 0.15s ease;
 }
+
+.list-group-item:hover {
+  border-color: rgba(255,255,255,0.25) !important;
+}
