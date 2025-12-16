@@ -1,13 +1,24 @@
 {% extends "base.html" %}
+
 {% block title %}Delete Deliverable | Designify{% endblock %}
+
 {% block content %}
-<h1>Delete deliverable</h1>
-<p>Are you sure you want to delete this file?</p>
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-6">
+    <div class="card rounded-4">
+      <div class="card-body p-4 p-lg-5">
+        <h1 class="fw-bold mb-2">Delete deliverable</h1>
+        <p class="text-secondary mb-4">
+          Are you sure you want to delete <span class="text-light fw-semibold">{{ deliverable.file.name }}</span>?
+        </p>
 
-<form method="post">
-  {% csrf_token %}
-  <button type="submit">Yes, delete</button>
-</form>
-
-<p><a href="{% url 'order_admin_detail' deliverable.order.id %}">Cancel</a></p>
+        <form method="post" class="d-flex gap-2">
+          {% csrf_token %}
+          <button class="btn btn-danger fw-semibold" type="submit">Yes, delete</button>
+          <a class="btn btn-outline-light" href="{% url 'order_admin_detail' deliverable.order.id %}">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

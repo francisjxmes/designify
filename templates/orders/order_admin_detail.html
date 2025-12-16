@@ -1,36 +1,92 @@
 {% extends "base.html" %}
+
 {% block title %}Admin Order #{{ order.id }} | Designify{% endblock %}
+{% block meta_description %}Staff view for managing an order and uploading deliverables.{% endblock %}
+
 {% block content %}
-<h1>Admin: Order #{{ order.id }}</h1>
+<div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
+  <div>
+    <h1 class="fw-bold mb-1">Admin: Order #{{ order.id }}</h1>
+    <p class="text-secondary mb-0">{{ order.user.username }} • {{ order.package.name }}</p>
+  </div>
+  <a class="btn btn-outline-light" href="{% url 'admin_order_list' %}">Back to admin orders</a>
+</div>
 
-<ul>
-  <li><strong>User:</strong> {{ order.user.username }}</li>
-  <li><strong>Package:</strong> {{ order.package.name }}</li>
-  <li><strong>Status:</strong> {{ order.get_status_display }}</li>
-  <li><strong>Quote:</strong> €{{ order.quoted_price_eur }}</li>
-</ul>
+<div class="row g-4">
 
-<p><strong>Brief:</strong><br>{{ order.brief }}</p>
+  <div class="col-12 col-lg-7">
+    <div class="card rounded-4">
+      <div class="card-body p-4 p-lg-5">
 
-<h2>Deliverables</h2>
+        <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-3">
+          <div>
+            <span class="badge bg-secondary">{{ order.get_status_display }}</span>
+            <span class="text-secondary small ms-2">Created {{ order.created_at|date:"M d, Y" }}</span>
+          </div>
 
-<p><a href="{% url 'deliverable_upload' order.id %}">Upload deliverable</a></p>
+          <div class="fw-bold fs-4">€{{ order.quoted_price_eur }}</div>
+        </div>
 
-{% if order.deliverables.all %}
-  <ul>
-    {% for d in order.deliverables.all %}
-      <li>
-        <a href="{{ d.file.url }}">{{ d.file.name }}</a>
-        {% if d.note %} — {{ d.note }}{% endif %}
+        <div class="row g-3 mb-4">
+          <div class="col-12 col-md-6">
+            <div class="p-3 border border-secondary rounded-3 bg-black">
+              <div class="text-secondary small">Design type</div>
+              <div class="fw-semibold">{{ order.design_type }}</div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="p-3 border border-secondary rounded-3 bg-black">
+              <div class="text-secondary small">Size</div>
+              <div class="fw-semibold">{{ order.size|default:"—" }}</div>
+            </div>
+          </div>
+        </div>
 
-        <form action="{% url 'deliverable_delete' d.id %}" method="post" style="display:inline;">
-          {% csrf_token %}
-          <button type="submit">Delete</button>
-        </form>
-      </li>
-    {% endfor %}
-  </ul>
-{% else %}
-  <p>No deliverables yet.</p>
-{% endif %}
+        <h5 class="fw-bold mb-2">Client brief</h5>
+        <p class="text-secondary mb-0">{{ order.brief }}</p>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-lg-5">
+    <div class="card rounded-4">
+      <div class="card-body p-4 p-lg-5">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="fw-bold mb-0">Deliverables</h5>
+          <a class="btn btn-primary btn-sm fw-semibold" href="{% url 'deliverable_upload' order.id %}">
+            Upload
+          </a>
+        </div>
+
+        {% if order.deliverables.all %}
+          <ul class="list-group">
+            {% for d in order.deliverables.all %}
+              <li class="list-group-item bg-black text-light border-secondary d-flex justify-content-between align-items-center">
+                <div class="me-3">
+                  <div class="fw-semibold">{{ d.file.name }}</div>
+                  {% if d.note %}<div class="text-secondary small">{{ d.note }}</div>{% endif %}
+                </div>
+
+                <div class="d-flex gap-2">
+                  <a class="btn btn-outline-light btn-sm" href="{{ d.file.url }}">View</a>
+
+                  <form action="{% url 'deliverable_delete' d.id %}" method="post" class="m-0">
+                    {% csrf_token %}
+                    <button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
+                  </form>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="text-secondary mb-0">No deliverables uploaded yet.</p>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+</div>
 {% endblock %}
