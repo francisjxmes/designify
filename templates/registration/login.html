@@ -1,10 +1,44 @@
 {% extends "base.html" %}
+
 {% block title %}Login | Designify{% endblock %}
+{% block meta_description %}Login to manage orders and download deliverables.{% endblock %}
+
 {% block content %}
-  <h1>Login</h1>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-  </form>
+<div class="row justify-content-center">
+  <div class="col-12 col-md-10 col-lg-6 col-xl-5">
+    <div class="card rounded-4 shadow-sm">
+      <div class="card-body p-4 p-lg-5">
+        <h1 class="fw-bold mb-2">Welcome back</h1>
+        <p class="text-secondary mb-4">Login to manage your orders and access your files.</p>
+
+        <form method="post" class="vstack gap-3">
+          {% csrf_token %}
+
+          {% if form.non_field_errors %}
+            <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+          {% endif %}
+
+          <div>
+            <label class="form-label">Username</label>
+            {{ form.username }}
+            {% if form.username.errors %}<div class="text-danger small mt-1">{{ form.username.errors }}</div>{% endif %}
+          </div>
+
+          <div>
+            <label class="form-label">Password</label>
+            {{ form.password }}
+            {% if form.password.errors %}<div class="text-danger small mt-1">{{ form.password.errors }}</div>{% endif %}
+          </div>
+
+          <button class="btn btn-primary btn-lg fw-semibold" type="submit">Login</button>
+        </form>
+
+        <div class="mt-4 d-flex justify-content-between align-items-center">
+          <span class="text-secondary small">No account?</span>
+          <a class="btn btn-outline-light btn-sm" href="{% url 'register' %}">Create one</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

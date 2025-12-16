@@ -42,6 +42,16 @@ class CustomLoginView(LoginView):
             return redirect("home")
         return super().dispatch(request, *args, **kwargs)
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields["username"].widget.attrs.update(
+            {"class": "form-control", "placeholder": "Username"}
+        )
+        form.fields["password"].widget.attrs.update(
+            {"class": "form-control", "placeholder": "Password"}
+        )
+        return form
+
     def get_success_url(self):
         return reverse_lazy("home")
 

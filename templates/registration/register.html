@@ -1,10 +1,56 @@
 {% extends "base.html" %}
+
 {% block title %}Register | Designify{% endblock %}
+{% block meta_description %}Create an account to place orders and access deliverables.{% endblock %}
+
 {% block content %}
-  <h1>Create account</h1>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
-  </form>
+<div class="row justify-content-center">
+  <div class="col-12 col-md-10 col-lg-6 col-xl-5">
+    <div class="card rounded-4 shadow-sm">
+      <div class="card-body p-4 p-lg-5">
+        <h1 class="fw-bold mb-2">Create your account</h1>
+        <p class="text-secondary mb-4">Start an order, pay securely, and receive your files here.</p>
+
+        <form method="post" class="vstack gap-3">
+          {% csrf_token %}
+
+          {% if form.non_field_errors %}
+            <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+          {% endif %}
+
+          <div>
+            <label class="form-label">Username</label>
+            {{ form.username }}
+            {% if form.username.errors %}<div class="text-danger small mt-1">{{ form.username.errors }}</div>{% endif %}
+          </div>
+
+          <div>
+            <label class="form-label">Email</label>
+            {{ form.email }}
+            {% if form.email.errors %}<div class="text-danger small mt-1">{{ form.email.errors }}</div>{% endif %}
+          </div>
+
+          <div>
+            <label class="form-label">Password</label>
+            {{ form.password1 }}
+            {% if form.password1.errors %}<div class="text-danger small mt-1">{{ form.password1.errors }}</div>{% endif %}
+          </div>
+
+          <div>
+            <label class="form-label">Confirm password</label>
+            {{ form.password2 }}
+            {% if form.password2.errors %}<div class="text-danger small mt-1">{{ form.password2.errors }}</div>{% endif %}
+          </div>
+
+          <button class="btn btn-primary btn-lg fw-semibold" type="submit">Create account</button>
+        </form>
+
+        <div class="mt-4 d-flex justify-content-between align-items-center">
+          <span class="text-secondary small">Already registered?</span>
+          <a class="btn btn-outline-light btn-sm" href="{% url 'login' %}">Login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
