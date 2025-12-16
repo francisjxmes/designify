@@ -1,6 +1,54 @@
 {% extends "base.html" %}
-{% block title %}Designify | Home{% endblock %}
+
+{% block title %}Designify | Graphic Design Services{% endblock %}
+{% block meta_description %}
+Buy bold, modern graphic design packages. Submit your brief, pay securely, and receive your files in one place.
+{% endblock %}
+
 {% block content %}
-  <h1>Designify</h1>
-  <p>Buy a design package, submit your brief, and receive your deliverables in one place.</p>
+<section class="py-4 py-lg-5">
+  <div class="row align-items-center g-4">
+
+    <!-- Text -->
+    <div class="col-12 col-lg-7">
+      <span class="badge bg-secondary text-uppercase mb-3">Bold • Modern • Fast</span>
+      <h1 class="display-5 fw-bold mb-3">Design that works for your brand</h1>
+      <p class="lead text-secondary mb-4">
+        Choose a design package, describe what you need, pay securely with Stripe,
+        and receive your deliverables directly in your dashboard.
+      </p>
+
+      <div class="d-flex flex-wrap gap-2">
+        <a href="{% url 'order_create' %}" class="btn btn-primary btn-lg fw-semibold">
+          Start a project
+        </a>
+        <a href="{% url 'portfolio_list' %}" class="btn btn-outline-light btn-lg">
+          View portfolio
+        </a>
+      </div>
+
+      <ul class="mt-4 text-secondary small list-unstyled">
+        <li>✔ Secure payments</li>
+        <li>✔ Order tracking</li>
+        <li>✔ Download deliverables</li>
+      </ul>
+    </div>
+
+    <!-- Visual / Info card -->
+    <div class="col-12 col-lg-5">
+      <div class="card rounded-4 h-100">
+        <div class="card-body p-4">
+          <h5 class="fw-bold mb-3">How it works</h5>
+          <ol class="text-secondary mb-0">
+            <li>Pick a design package</li>
+            <li>Submit your brief</li>
+            <li>Pay securely online</li>
+            <li>Download your files</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
 {% endblock %}
