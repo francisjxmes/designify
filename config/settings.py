@@ -43,12 +43,21 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.sitemaps',
+    'cloudinary_storage',
+    'cloudinary',
     'core',
     'portfolio',
     'orders',
     'payments',
     'marketing',
 ]
+
+CLOUDINARY_STORAGE = {
+    "CLOUDINARY_URL": os.getenv("CLOUDINARY_URL", "")
+}
+
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
 
 SITE_ID = 1
 
