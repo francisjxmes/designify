@@ -31,11 +31,31 @@ Designify is a full-stack Django e-commerce web application for purchasing graph
 ---
 
 ## E-commerce Business Model
-Designify uses a **service-based, single-payment model**:
-- Users purchase predefined design packages
-- Pricing is determined on the server (not editable in the browser)
-- Payments are processed through Stripe Checkout
-- Deliverables are uploaded by staff and made available to the customer
+
+Designify operates as a **B2C (Business-to-Consumer)** service-based e-commerce platform.
+
+The purpose of the site is to allow individual users and small business owners to purchase custom design services online.
+
+The revenue model is based on **single one-time payments** for design packages such as branding, social media kits, promotional graphics, and bespoke creative deliverables.
+
+Users browse available portfolio work and select a design package that best suits their needs. They then submit a custom brief and complete payment through Stripe.
+
+The business creates value by:
+- providing professional design services online
+- streamlining the custom order process
+- allowing direct communication of user requirements
+- enabling digital delivery of completed design assets
+
+The target market includes:
+- small businesses
+- influencers and creators
+- independent musicians and artists
+- startups
+- personal branding clients
+
+This model is primarily focused on **digital service sales**, rather than physical product sales.
+
+---
 
 ## User Stories 
 
