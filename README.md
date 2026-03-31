@@ -146,13 +146,29 @@ Relationships:
 
 ## Testing 
 
-### Manual Testing Checklist
-- Register: validation + success flow
-- Login/Logout: redirects + nav state
-- Create order: form validation + CRUD
-- Payment: Stripe redirect + cancel/success feedback
-- Authorisation: staff only pages blocked for non staff
-- Responsive layout: mobile and desktop checks
+### Manual Testing
+
+| Feature | Test Performed | Expected Result | Outcome |
+|---|---|---|---|
+| User Registration | Created new account with valid details | User account created and redirected | Pass |
+| Login | Logged in with valid credentials | User redirected to homepage/dashboard | Pass |
+| Logout | Clicked logout button | User logged out and redirected | Pass |
+| Create Order | Submitted design brief form | Order created in database | Pass |
+| Edit Order | Updated existing draft order | Changes saved and reflected in frontend | Pass |
+| Delete Order | Deleted draft order | Order removed from database | Pass |
+| Stripe Payment | Proceeded to test checkout | Redirected to Stripe checkout page | Pass |
+| Payment Success | Used successful Stripe test card | Payment marked successful | Pass |
+| Payment Cancel | Cancelled Stripe checkout | User returned with feedback message | Pass |
+| Deliverable Upload | Admin uploaded design file | Deliverable visible to user | Pass |
+| Portfolio Page | Loaded portfolio items | Items displayed correctly | Pass |
+| Newsletter Signup | Submitted email | Subscriber saved successfully | Pass |
+| Responsive Design | Tested mobile + desktop | Layout adapts correctly | Pass |
+
+### Validation Testing
+- HTML pages tested through W3C validator
+- CSS tested through W3C validator
+- Python code checked for PEP8 compliance
+- Forms tested for invalid inputs and error messaging
 
 ---
 
