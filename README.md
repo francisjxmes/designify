@@ -91,19 +91,46 @@ Designify uses a **service-based, single-payment model**:
 
 ---
 
-## Database Design 
-Custom models include:
-- DesignPackage
-- DesignOrder
-- PortfolioItem
-- Testimonial
-- NewsletterSubscriber
-- Deliverable
+## UX Design
+
+The purpose of Designify is to provide users with a clean and straightforward platform to purchase custom design services online.
+
+The target audience includes:
+- small business owners
+- content creators
+- independent artists
+- professionals requiring branding or promotional design work
+
+The user journey was designed to be simple:
+1. View portfolio work
+2. Select a package
+3. Submit design brief
+4. Pay securely
+5. Receive deliverables
+
+The interface was designed with a mobile-first responsive layout using Bootstrap, ensuring usability across mobile, tablet, and desktop devices.
+
+---
+
+## Agile Planning
+
+---
+
+## Database Schema
+The application uses a relational database structure with clear model relationships.
+
+Key models include:
+- `DesignPackage`
+- `DesignOrder`
+- `PortfolioItem`
+- `Testimonial`
+- `NewsletterSubscriber`
+- `Deliverable`
 
 Relationships:
-- A User has many Orders
-- An Order belongs to a Package
-- An Order can have many Deliverables
+- One user can create multiple design orders
+- Each order belongs to one package
+- Each order can have multiple deliverables
 
 ---
 
@@ -127,23 +154,38 @@ Relationships:
 - Authorisation: staff only pages blocked for non staff
 - Responsive layout: mobile and desktop checks
 
-## Deployment (Render)
+---
 
-### Deployment Steps
-1. Create a Render Web Service linked to the GitHub repository.
-2. Set Build Command:
-   ```bash
-   pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate
-3. Set Start Command:
-   ```bash
-   gunicorn config.wsgi:application
-4. Set Environment Variables on Render:
-- SECRET_KEY
-- DEBUG=False
-- ALLOWED_HOSTS=designify-1-ozf5.onrender.com,www.designify-1-ozf5.onrender.com
-- STRIPE_PUBLIC_KEY
-- STRIPE_SECRET_KEY
-- CLOUDINARY_URL 
+## Deployment 
+
+The application is deployed using Render.
+
+### Deployment Process
+1. The project was pushed to GitHub.
+2. A new Render Web Service was created.
+3. The GitHub repository was linked to Render.
+4. Environment variables were configured:
+   - SECRET_KEY
+   - DEBUG
+   - ALLOWED_HOSTS
+   - STRIPE keys
+   - CLOUDINARY_URL
+5. Static files are served using WhiteNoise.
+6. Media files are stored using Cloudinary.
+7. The application was deployed successfully and tested on the live URL.
+
+### Security
+Sensitive information such as API keys and secret keys are stored securely using environment variables and are excluded from version control using `.gitignore`.
+
+---
+
+## Known Issues & Limitations
+
+During deployment on Render's free tier, the SQLite database may reset on redeploy due to the ephemeral file system.
+
+In a production environment, this would be resolved using PostgreSQL or a persistent disk.
+
+---
 
 ## Marketing
 
