@@ -102,12 +102,16 @@ This model is primarily focused on **digital service sales**, rather than physic
 - Stripe Checkout integration (test mode)
 - Feedback pages/messages for successful and unsuccessful payments
 
-### SEO 
-- Meta descriptions and site title
-- All pages reachable via internal links/navigation
-- sitemap.xml and robots.txt
-- Custom 404 page
-- No lorem ipsum
+### SEO Implementation
+The project includes multiple SEO-focused features to improve visibility and indexing:
+
+- custom page titles
+- custom meta descriptions
+- robots.txt
+- sitemap.xml
+- bespoke 404 page
+- internal linking through navigation and footer links
+- use of rel attributes for external links
 
 ---
 
@@ -128,7 +132,17 @@ The user journey was designed to be simple:
 4. Pay securely
 5. Receive deliverables
 
-The interface was designed with a mobile-first responsive layout using Bootstrap, ensuring usability across mobile, tablet, and desktop devices.
+### Design Process
+
+The interface was planned with a strong focus on user journey and clarity.
+
+Key goals included:
+- easy portfolio browsing
+- quick package selection
+- clear checkout flow
+- intuitive admin order management
+
+Wireframe-style planning and mockup imagery were used to support design decisions and page layout structure.
 
 ---
 
