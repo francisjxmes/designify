@@ -134,6 +134,20 @@ The interface was designed with a mobile-first responsive layout using Bootstrap
 
 ## Agile Planning
 
+The project was developed using Agile methodology principles.
+
+GitHub Issues were used to define user stories and acceptance criteria for each major feature.
+
+A GitHub Project Board was used to organise development tasks into:
+- Todo
+- In Progress
+- Done
+
+This allowed features to be planned, prioritised, and tracked throughout development.
+
+### Agile Development Board
+![Agile Board](static/images/agile-board.png)
+
 ---
 
 ## Database Schema
