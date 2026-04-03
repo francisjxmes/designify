@@ -16,7 +16,16 @@
     {% for item in items %}
       <div class="col-12 col-md-6 col-lg-4">
         <a class="text-decoration-none text-light" href="{% url 'portfolio_detail' item.id %}">
-          <div class="card rounded-4 h-100">
+          <div class="card rounded-4 h-100 overflow-hidden">
+
+            {% if item.image %}
+              <img
+                src="{{ item.image.url }}"
+                alt="{{ item.title }}"
+                class="w-100"
+                style="height: 220px; object-fit: cover;">
+            {% endif %}
+        
             <div class="card-body p-4">
               <div class="d-flex justify-content-between align-items-start mb-2">
                 <span class="badge bg-secondary">{{ item.category }}</span>
@@ -24,7 +33,7 @@
               <h5 class="fw-bold mb-2">{{ item.title }}</h5>
               <p class="text-secondary mb-0">{{ item.description|truncatechars:110 }}</p>
             </div>
-          </div>
+        </div>
         </a>
       </div>
     {% endfor %}
