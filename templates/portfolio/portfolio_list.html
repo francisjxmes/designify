@@ -14,16 +14,27 @@
 {% if items %}
   <div class="row g-3">
     {% for item in items %}
+    
       <div class="col-12 col-md-6 col-lg-4">
         <a class="text-decoration-none text-light" href="{% url 'portfolio_detail' item.id %}">
           <div class="card rounded-4 h-100 overflow-hidden">
 
-            {% if item.image %}
-              <img
-                src="{{ item.image.url }}"
-                alt="{{ item.title }}"
-                class="w-100"
-                style="height: 220px; object-fit: cover;">
+            {% if item.title == "Skincare Brand" %}
+              <img src="/static/images/portfolio-1.png" alt="{{ item.title }}" class="w-100" style="height: 220px; object-fit: cover;">
+            {% elif item.title == "Summer Fest" %}
+              <img src="/static/images/portfolio-2.png" alt="{{ item.title }}" class="w-100" style="height: 220px; object-fit: cover;">
+            {% elif item.title == "Studio Arch" %}
+              <img src="/static/images/portfolio-3.png" alt="{{ item.title }}" class="w-100" style="height: 220px; object-fit: cover;">
+            {% elif item.title == "Vintage Vinyl" %}
+              <img src="/static/images/portfolio-4.png" alt="{{ item.title }}" class="w-100" style="height: 220px; object-fit: cover;">
+            {% elif item.title == "Minimal App Icons" %}
+              <img src="/static/images/portfolio-5.png" alt="{{ item.title }}" class="w-100" style="height: 220px; object-fit: cover;">
+            {% elif item.title == "Urban Gym" %}
+              <img src="/static/images/portfolio-6.png" alt="{{ item.title }}" class="w-100" style="height: 220px; object-fit: cover;">
+            {% elif item.title == "Coffee Club" %}
+              <img src="/static/images/portfolio-7.png" alt="{{ item.title }}" class="w-100" style="height: 220px; object-fit: cover;">
+            {% elif item.title == "Neon Light" %}
+              <img src="/static/images/portfolio-8.png" alt="{{ item.title }}" class="w-100" style="height: 220px; object-fit: cover;">
             {% endif %}
         
             <div class="card-body p-4">
