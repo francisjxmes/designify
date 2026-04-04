@@ -149,7 +149,7 @@ Initial wireframes were created to plan page layout, user flow, and content hier
 #### Homepage Wireframe
 ![Homepage Wireframe](static/images/homepage-wireframe.jpeg)
  
-#### Checkout Flow Wireframe
+#### Portfolio Wireframe
 ![Portfolio Wireframe](static/images/portfolio-wireframe.jpeg)
 
 ---
