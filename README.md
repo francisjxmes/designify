@@ -147,10 +147,10 @@ Key goals included:
 Initial wireframes were created to plan page layout, user flow, and content hierarchy before development.
 
 #### Homepage Wireframe
-![Homepage Wireframe](static/images/homepage-wireframe.png)
-
+![Homepage Wireframe](static/images/homepage-wireframe.jpeg)
+ 
 #### Checkout Flow Wireframe
-![Portfolio Wireframe](static/images/portfolio-wireframe.png)
+![Portfolio Wireframe](static/images/portfolio-wireframe.jpeg)
 
 ---
 
