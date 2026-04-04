@@ -142,7 +142,15 @@ Key goals included:
 - clear checkout flow
 - intuitive admin order management
 
-Wireframe-style planning and mockup imagery were used to support design decisions and page layout structure.
+### Wireframes and Design Planning
+
+Initial wireframes were created to plan page layout, user flow, and content hierarchy before development.
+
+#### Homepage Wireframe
+![Homepage Wireframe](static/images/homepage-wireframe.png)
+
+#### Checkout Flow Wireframe
+![Portfolio Wireframe](static/images/portfolio-wireframe.png)
 
 ---
 
